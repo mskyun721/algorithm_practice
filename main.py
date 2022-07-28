@@ -58,3 +58,23 @@ def dfs(graph, start_node, searchType):
                 need_visited.extend(graph[node])
 
     return visited
+
+
+# 최대공약수(유클리드 호제법)
+def gcd(a, b):
+    while b > 0:
+        a, b = b, a % b
+    return a
+
+
+# 최소공배소
+def lcm(a, b):
+    return a * b / gcd(a, b)
+
+
+import string 
+
+string.ascii_lowercase # 소문자 abcdefghijklmnopqrstuvwxyz
+string.ascii_uppercase # 대문자 ABCDEFGHIJKLMNOPQRSTUVWXYZ
+string.ascii_letters # 대소문자 모두 abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
+string.digits # 숫자 0123456789
