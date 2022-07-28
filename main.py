@@ -1,4 +1,4 @@
-# 조합
+# 조합(Itertools combinations)
 def comb(arr, n):
     result = []
 
@@ -16,7 +16,7 @@ def comb(arr, n):
     return result
 
 
-# 순열
+# 순열(Itertools permutations)
 def perm(arr, n):
     result = []
 
@@ -35,6 +35,7 @@ def perm(arr, n):
 
     return result
 
+    
 
 # dfs (depth first search) / bfs (breadth first search)
 def dfs(graph, start_node, searchType):
@@ -72,9 +73,17 @@ def lcm(a, b):
     return a * b / gcd(a, b)
 
 
+# https://docs.python.org/3.4/library/string.html
 import string 
 
 string.ascii_lowercase # 소문자 abcdefghijklmnopqrstuvwxyz
 string.ascii_uppercase # 대문자 ABCDEFGHIJKLMNOPQRSTUVWXYZ
 string.ascii_letters # 대소문자 모두 abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
 string.digits # 숫자 0123456789
+
+
+# list 뒤집기(역정렬)
+list.reverse()
+mylist = [[1, 2, 3], [4, 5, 6], [7, 8, 9]] # 2차원 리스트 뒤집기
+new_list = list(map(list, zip(*mylist)))
+
