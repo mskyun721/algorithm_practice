@@ -10,7 +10,7 @@ def solution(numbers):
     print(numbers)
 
     for i in range(0, len(numbers) - 1):
-        if int(numbers[i] + numbers[i+1]) < int(numbers[i+1] + numbers[i]:)
+        if int(numbers[i] + numbers[i+1]) < int(numbers[i+1] + numbers[i]):
             numbers[i+1], numbers[i] = numbers[i], numbers[i+1]
 
     print(numbers)
