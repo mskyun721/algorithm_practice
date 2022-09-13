@@ -38,7 +38,7 @@ def perm(arr, n):
     
 
 # dfs (depth first search) / bfs (breadth first search)
-def dfs(graph, start_node, searchType):
+def search(graph, start_node, searchType):
     need_visited, visited = [], []
     need_visited.append(start_node)
 
