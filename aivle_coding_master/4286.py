@@ -1,5 +1,3 @@
-
-
 import sys
 from itertools import permutations
 input = sys.stdin.readline
@@ -16,8 +14,6 @@ for i in range(n):
             end.append((i,j))
         elif tmp[j] == 'C':
             start.append((i,j))
-
-item = list(permutations(list(range(len(start))), len(start)))
 
 
 move = [(0,1),(1,0),(-1,0),(0,-1)]
@@ -56,6 +52,7 @@ for i, st in enumerate(start):
     result.append(search(st))
 
 point = -1
+item = list(permutations(list(range(len(start))), len(start)))
 for i in item:
     tmp = []
     for idx, r in zip(i,result):
