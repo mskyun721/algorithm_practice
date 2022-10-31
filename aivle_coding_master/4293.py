@@ -1,36 +1,39 @@
-
-
-import sys
+from itertools import permutations, combinations
 
 n, m = map(int, input().split())
-INF = int(1e9)
-
-graph = [[INF] * (n + 1) for _ in range(n + 1)]
-
-for a in range(1, n + 1):
-    for b in range(1, n + 1):
-        if a == b:
-            graph[a][b] = 0
+graph = [[0]*(n+1) for _ in range(n+1)]
+loop = list(combinations(list(range(1,n+1)), 2))
 
 for _ in range(m):
-    # A에서 B로 가는 비용은 C라고 설정
-    a, b, c = map(int, input().split())
+    a, b, c = map(int,input().split())
     graph[a][b] = c
+    graph[b][a] = c
 
-print(graph)
+def dfs(graph, start, end):
+    # print(f'start : {start}')
+    if start == end:
+        # print(f'end : {path}')
+        if len(path)+1 == n:
+            result.append(sum(path))
+    else:
+        for i in range(1, n+1):
+            # print(f'i : {i}')
+            # print(graph[start][i], visited[i])
+            if graph[start][i] != 0 and visited[i]:
+                visited[start] = False
+                path.append(graph[start][i])
+                # print(f'path : {path}')
+                dfs(graph,i, end)
+                path.pop()
+                # print(f'path pop : {path}')
+                visited[i] = True
+            # print()
 
-for k in range(1, n + 1):
-    for a in range(1, n + 1):
-        for b in range(1, n + 1):
-            graph[a][b] = min(graph[a][b], graph[a][k] + graph[k][b])
+result = []    
+for st, ed in loop:
+    visited = [True] * (n+1)
+    path = []
+    # print(f'loop : {st, ed}')
+    dfs(graph,st, ed)
 
-# 수행된 결과를 출력
-for a in range(1, n + 1):
-    for b in range(1, n + 1):
-        # 도달할 수 없는 경우, 무한(INFINITY)이라고 출력
-        if graph[a][b] == 1e9:
-            print("INFINITY", end=" ")
-        # 도달할 수 있는 경우 거리를 출력
-        else:
-            print(graph[a][b], end=" ")
-    print()
+print(min(result))

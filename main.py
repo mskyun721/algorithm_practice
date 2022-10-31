@@ -35,7 +35,28 @@ def perm(arr, n):
 
     return result
 
+from collections import deque
+check = [[0 for _ in range(1001)] for _ in range(1001)]
+maze = []
+def dfs(startX,startY,endX,endY):
+    q = [(startX,startY)]
+    check[startX][startY]=0
+    dx = [-1,1,0,0]
+    dy = [0,0,-1,1]
     
+    while q:
+        x,y= q.pop()
+        for i in range(4):
+            nx = x+dx[i]
+            ny = y+dy[i]
+            if nx>=0 and nx<n and ny>=0 and ny<m:
+                if maze[nx][ny] == 0 and check[nx][ny]==0:
+                    q.append((nx,ny))
+                    check[nx][ny] = check[x][y]+1
+                    if nx == endX and ny==endY:
+                        break
+    return check[endX][endY]
+
 
 # dfs (depth first search) / bfs (breadth first search)
 def search(graph, start_node, searchType):
@@ -211,6 +232,14 @@ print(tree.levelCycle(tree.root))
 
 # 다익스트라 알고리즘 ( 특정 노드에서 각 노드까지의 최단 거리 )
 import heapq  # 우선순위 큐 구현을 위함
+graph = {
+    'A': {'B': 8, 'C': 1, 'D': 2},
+    'B': {},
+    'C': {'B': 5, 'D': 2},
+    'D': {'E': 3, 'F': 5},
+    'E': {'F': 1},
+    'F': {'A': 5}
+}
 
 def dijkstra(graph, start):
     distances = {node: float('inf') for node in graph}  # start로 부터의 거리 값을 저장하기 위함

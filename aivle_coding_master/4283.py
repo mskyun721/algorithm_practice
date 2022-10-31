@@ -1,30 +1,16 @@
 # -*- coding: utf-8 -*-
 import sys
 from itertools import permutations
-from itertools import combinations
 
 n = int(sys.stdin.readline())
 games = list(map(int, input().split()))
-# perm = list(permutations(games, 6))
-# comb = list(permutations(games, 2))
 
+perm = list(permutations(games, n))
 
-# for i in perm:
-#     print(i)
-
-# print()
-
-score = []
-for i in games:
-    tmp = []
-    for j in games:
-        tmp.append(abs(i-j))
-
-    score.append(tmp)
-
-for i in score:
-    print(i)
-
+result = []
+for p in perm[0:len(perm)//n]:
+    tmp = [abs(p[i]-p[i+1]) for i in range(-1,n-1)]
+    result.append(max(tmp))
     
-    
+print(min(result))
     
