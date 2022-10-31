@@ -9,7 +9,7 @@ move = [(1,0),(0,1),(-1,0),(0,-1)]
 # 동물원 크기 n*m
 n, m = map(int, input().split())
 zoo = [] # 동물원
-bins = [] # 빈칸
+bins = 0 # 빈칸
 jaguars = [] # 재규어 위치
 jaguars_side_bin = [] # 재규어 주변 빈값
 
@@ -22,7 +22,7 @@ for x in range(n):
     for y in range(m):
         # 빈칸 위치
         if zoo[x][y] == 0:
-            bins.append((x,y))
+            bins += 1
 
             # 빈칸 주변 재규어 유무 체크
             for t in move:
@@ -55,7 +55,7 @@ def dfs_search_bins(graph, start):
                         need_visited.append((nx, ny))
                         count += 1
 
-    return count
+    return visited[1:]
 
 
 result = []
@@ -69,10 +69,13 @@ for comb in comb_bin:
     # print(f'comb : {comb}')
     # print(f'tmp_zoo : {tmp_zoo}')
     # 재규어 이동 가능 빈칸 개수 확인
-    count = len(bins) - 3
+    count = bins - 3
+    side_bin = []
     for start in jaguars:
-        count -= dfs_search_bins(tmp_zoo, start)
-        result.append(count)
+        side_bin.extend(dfs_search_bins(tmp_zoo, start))
+    # print(side_bin)
+    count -= len(set(side_bin))
+    result.append(count)
 
 
 print(max(result))
