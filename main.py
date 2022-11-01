@@ -82,6 +82,27 @@ def search(graph, start_node, searchType):
     return visited
 
 
+# 전체 경로
+def DFS(L, s):
+    global cnt
+    if L==m:
+        for i in range(m):
+            print(res[i], end=' ')
+        print()
+        cnt+=1
+    else:
+        for i in range(s, n+1):
+            res[L]=i
+            # s(시작점)가 아닌 i(뻗어나가는 가지)에 +1
+            DFS(L+1, i+1)
+           
+
+n, m=map(int, input().split())
+res=[0]*(n+1)
+cnt=0
+DFS(0, 1)
+print(cnt)
+
 # 최대공약수(유클리드 호제법)
 def gcd(a, b):
     while b > 0:
@@ -293,9 +314,9 @@ def dijkstra(n, start):
         # 선택된 노드를 통해 가는 비용을 다시 계산
         # 선택된 노드의 비용 + 연결된 노드로 가는 비용
             cost = distance[now] + j[1]
-        # 선택된 노드를 거쳐서 가는 비용이 더 짧은 경우
-        if cost<distance[j[0]]:
-            distance[j[0]] = cost # 최단거리 테이블 갱신
+            # 선택된 노드를 거쳐서 가는 비용이 더 짧은 경우
+            if cost<distance[j[0]]:
+                distance[j[0]] = cost # 최단거리 테이블 갱신
 
 
 # 플로이드-워셜 알고리즘 (모든 정점 사이의 최단 경로)

@@ -1,5 +1,3 @@
-
-
 import sys
 input = sys.stdin.readline
 
@@ -12,17 +10,19 @@ for _ in range(n):
 
 # 상하좌우
 move = [(1,0),(0,1),(-1,0),(0,-1)]
+graph = {}
+for i in range(n):
+    for j in range(m):
+        center = board[i][j]
 
-start, end = [0,0], [n-1,m-1]
-pass_count = 0
-def search(graph):
-    need_visited, visited = [], []
-    need_visited.append(start)
+        for x, y in move:
+            x_, y_ = i+x, j+y
+            if 0 <= x_ < n and 0 <= y_ < m:
+                tmp = board[x_][y_]
+                if center > tmp:
+                    if (i,j) not in graph:
+                        graph[(i,j)] = [(i+x, j+y)]
+                    else:
+                        graph[(i,j)].append((i+x, j+y))
 
-    while need_visited:
-        now = need_visited.pop()
-        point = graph[now[0]][now[1]]
-
-        for i in move:
-            x, y = now[0]+i[0] , now[1]+i[1]
-        
+print(graph)

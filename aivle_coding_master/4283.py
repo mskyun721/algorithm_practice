@@ -1,16 +1,19 @@
 # -*- coding: utf-8 -*-
 import sys
-from itertools import permutations
 
 n = int(sys.stdin.readline())
 games = list(map(int, input().split()))
+games.sort(reverse=True)
 
-perm = list(permutations(games, n))
+result = [games[0]]
+isWhere = True
+for g in games[1:]:
+    if isWhere:
+        result.append(g)
+        isWhere=False
+    else:
+        result.insert(0, g)
+        isWhere=True
 
-result = []
-for p in perm[0:len(perm)//n]:
-    tmp = [abs(p[i]-p[i+1]) for i in range(-1,n-1)]
-    result.append(max(tmp))
-    
-print(min(result))
-    
+tmp = [abs(result[i]-result[i+1]) for i in range(-1,n-1)]
+print(max(tmp))
