@@ -82,32 +82,36 @@ def search(graph, start_node, searchType):
     return visited
 
 
-# 전체 경로
-def DFS(L, s):
-    global cnt
-    if L==m:
-        for i in range(m):
-            print(res[i], end=' ')
-        print()
+# DFS 전체 경로 경우의 수
+def DFS(v):
+    global cnt, path
+    if v==n:
         cnt+=1
+        for x in path:
+            print(x, end=' ')
+        print()
     else:
-        for i in range(s, n+1):
-            res[L]=i
-            # s(시작점)가 아닌 i(뻗어나가는 가지)에 +1
-            DFS(L+1, i+1)
+        for i in range(1, n+1):
+            if g[v][i]==1 and ch[i]==0:
+                ch[i]=1
+                path.append(i)
+                DFS(i)
+                path.pop()
+                ch[i]=0
            
-
-n, m=map(int, input().split())
-res=[0]*(n+1)
-cnt=0
-DFS(0, 1)
-print(cnt)
-
-# 최대공약수(유클리드 호제법)
-def gcd(a, b):
-    while b > 0:
-        a, b = b, a % b
-    return a
+if __name__=="__main__":
+    n, m=map(int, input().split())
+    g=[[0]*(n+1) for _ in range(n+1)]
+    ch=[0]*(n+1)
+    for i in range(m):
+        a, b=map(int, input().split())
+        g[a][b]=1
+    cnt=0
+    ch[1]=1
+    path=list()
+    path.append(1)
+    DFS(1)
+    print(cnt)
 
 
 # 최소공배소
