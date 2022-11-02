@@ -114,6 +114,12 @@ if __name__=="__main__":
     print(cnt)
 
 
+# 최대공약수(유클리드 호제법)
+def gcd(a, b):
+    while b > 0:
+        a, b = b, a % b
+    return a
+    
 # 최소공배소
 def lcm(a, b):
     return a * b / gcd(a, b)
