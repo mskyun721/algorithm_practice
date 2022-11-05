@@ -152,6 +152,7 @@ def seq_search(arr, key):
     return idx
 
 #   이진 검색(순서 정렬 필수)
+from bisect import bisect_left, bisect_right
 def bin_search(arr, key):
     st = 0
     ed = len(arr)-1
