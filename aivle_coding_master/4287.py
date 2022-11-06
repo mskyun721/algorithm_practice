@@ -16,7 +16,6 @@ move = [(1,0),(0,1),(-1,0),(0,-1)]
 cnt = 0
 def DFS(graph, start, end):
     global cnt
-    # path = []
     road = [[True for _ in range(m+1)] for _ in range(n+1)]
     point = graph[start[0]][start[1]]
     if start == end:
@@ -27,9 +26,7 @@ def DFS(graph, start, end):
             if 0 <= x_ < n and 0 <= y_ < m:
                 if point > graph[x_][y_] and road[x_][y_]:
                     road[x_][y_] = False
-                    # path.append(i)
                     DFS(graph, (x_,y_), end)
-                    # path.pop()
                     road[x_][y_] = True
 
 

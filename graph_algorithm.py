@@ -140,4 +140,19 @@ def union_parent(parent, a, b):
 # 최소 신장 트리 : 모든 노드를 포함하면서 모든 노드간의 사이클이 존재하지 않는 그래프
 # 크루스칼 알고리즘은 최소 신장 트리를 찾는 알고리즘이다. 
 # 즉, 모든 노드를 포함하면서 사이클이 존재하지 않는 최소 트리를 찾는다.
+# processer
+# 1. 모든 간선 정보에 대해 오름차순 정렬
+# 2. 모든 간선이 노드들 간의 사이클이 발생하는지 확인
+# 3. 사이클이 발생하지 않으면 최소 신장 트리에 포함 / 발생되면 pass
+# 4. 1 ~ 3번 과정 반복
+
+# n : 노드의 수 / m : 간선의 수
+def kruskal(graph, parent):
+    total_cost = 0
+    for cost, a, b in graph:
+        if find_parent(parent, a) != find_parent(parent, b):
+            union_parent(parent, a, b)
+            total_cost += cost
+
+    return total_cost
 
