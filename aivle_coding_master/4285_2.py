@@ -2,13 +2,12 @@ import sys
 input = sys.stdin.readline
 
 n, m = map(int,input().split())
-
 mom, baby = {i : [] for i in range(1,n+1)}, {i : [] for i in range(1,n+1)}
+
 for _ in range(m):
     m, b = map(int, input().split())
     mom[m].append(b)
     baby[b].append(m)
-
 cnt = 0
 
 while True:
@@ -21,7 +20,8 @@ while True:
         elif len(mom[i]) == 1:
             b = mom[i][0]
             del_mom.append(i)
-            del baby[b]
+            # del baby[b]
+            baby[b].remove(i)
             
             for j in mom:
                 if b in mom[j]:
@@ -33,7 +33,8 @@ while True:
             for j in mom[i]:
                 if len(baby[j]) == 1:
                     del_mom.append(i)
-                    del baby[j]
+                    # del baby[j]
+                    baby[j].remove(i)
                     mom[i].clear()
                     
                     for k in baby:

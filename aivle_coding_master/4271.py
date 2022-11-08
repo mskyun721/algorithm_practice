@@ -23,7 +23,6 @@ else:
         else:
             return True
                 
-
     while True:
         if over_check(total, monkeys, x):
             x += 1

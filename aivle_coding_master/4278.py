@@ -1,10 +1,7 @@
 import sys
-import numpy as np
 input = sys.stdin.readline
 
 n = int(input())
-
-list_work = []
 days = [[0] * (n+1) for _ in range(n)]
 
 for i in range(n):

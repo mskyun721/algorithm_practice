@@ -27,7 +27,7 @@ def search(start, end):
                             point -= 1
                             end[(mx,my)] = count_graph[mx][my]
 
-    return max(list(end.values()))
+    return end.values()
 
 
 n, m = map(int, input().split())
@@ -44,16 +44,16 @@ result = []
 for st in start:
     result.append(search(st, end))
 
-# point = int(1e9)
-# item = list(permutations(list(range(len(start))), len(start)))
-# print(item)
-# print(result)
-# for i in item:
-#     tmp = 0
-#     print(list(zip(i,result)))
-#     for idx, r in zip(i,result):
-#         tmp = max(tmp, r[idx])
+point = int(1e9)
+item = list(permutations(list(range(len(start))), len(start)))
+print(item)
+print(result)
+for i in item:
+    tmp = 0
+    print(list(zip(i,result)))
+    for idx, r in zip(i,result):
+        tmp = max(tmp, r[idx])
 
-#     point = min(point, tmp)
+    point = min(point, tmp)
 
 print(min(result))
