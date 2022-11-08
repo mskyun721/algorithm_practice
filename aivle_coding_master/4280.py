@@ -1,6 +1,11 @@
 import sys
 input = sys.stdin.readline
 
+
+def solution(wood, ):
+    wood
+
+
 n, m = map(int, input().split())
 wood = []
 

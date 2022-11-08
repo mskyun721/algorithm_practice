@@ -21,3 +21,5 @@ for x, y in wifi:
     result = min(result, dist)
 
 print(result)
+
+

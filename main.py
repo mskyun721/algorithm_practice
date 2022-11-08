@@ -367,3 +367,20 @@ for a in range(1, n + 1):
         else:
             print(graph[a][b], end=" ")
     print()
+
+
+# 최장 증가 부분 수열 (LIS) 알고리즘
+def lis(list_n):
+    lst = [0]
+    for idx in range(n):
+        num = list_n[idx]
+        if num > lst[-1]:
+            lst.append(num)
+        else:
+            for i in range(len(lst)-2,-1,-1):
+                if num > lst[i]:
+                    lst[i+1] = num
+                    break
+
+    return n-len(lst)+1
+

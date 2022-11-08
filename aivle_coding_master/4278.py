@@ -16,6 +16,3 @@ for i in range(n):
 
 for _ in days:
     print(_)
-
-
-
