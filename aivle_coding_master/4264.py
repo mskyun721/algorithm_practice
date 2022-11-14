@@ -12,7 +12,6 @@ def lis(list_n):
             if list_n[j] < list_n[i]:
                 dp[i] = max(dp[i], dp[j] + 1)
 
-    print(dp)
     return max(dp)
 
-print(n - lis(list_n))
+print(lis(list_n))

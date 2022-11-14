@@ -1,4 +1,4 @@
-from re import I
+import heapq
 import sys
 input = sys.stdin.readline
 
@@ -9,41 +9,29 @@ graph = [[] for i in range(n+1)]
 
 for _ in range(m):
     st, ed, d = map(int, input().split())
-    graph[st].append([ed, d])
-
-
-def min_node(distance, visited):
-    min_value = INF
-    idx = 0
-    for i in range(1, n+1):
-        if distance[i] < min_value and not visited[i]:
-            min_value = distance[i]
-            idx = i
-    
-    return idx
+    graph[st].append((ed, d))
 
 def dijkstra(start):
-    visited, distance = [False] * (n+1), [INF] * (n+1)
-    distance[start], visited[start] = 0, True
+    distance, visited = [INF] * (n+1), []
+    heapq.heappush(visited, (start, 0))
+    distance[start] = 0
 
-    for i in graph[start]:
-        distance[i[0]] = i[1]
+    while visited:
+        node, dist = heapq.heappop(visited)
+
+        if distance[node] < dist:
+            continue
+
+        for i, d in graph[node]:
+            if distance[i] > (distance[node] + d):
+                distance[i] = distance[node] + d
+                heapq.heappush(visited, (i, distance[i]))
     
-    for _ in range(n-1):
-        idx = min_node(distance, visited)
-        visited[idx] = True
-
-        for i in graph[idx]:
-            d = distance[idx] + i[1]
-            if d < distance[i[0]]:
-                distance[i[0]] = d
-
-    return distance[1:]
-
+    return distance
 
 for i in range(1, n+1):
     tmp = dijkstra(i)
-    for j in tmp:
+    for j in tmp[1:]:
         if j == INF:
             print(0, end=' ')
         else:

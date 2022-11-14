@@ -1,3 +1,15 @@
+# 소수 판별
+n = int(input())
+if n == 1:
+    print(0)
+else:
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            print(0)
+    else:
+        print(1)
+
+
 # 조합(Itertools combinations)
 def comb(arr, n):
     result = []
@@ -371,16 +383,12 @@ for a in range(1, n + 1):
 
 # 최장 증가 부분 수열 (LIS) 알고리즘
 def lis(list_n):
-    lst = [0]
-    for idx in range(n):
-        num = list_n[idx]
-        if num > lst[-1]:
-            lst.append(num)
-        else:
-            for i in range(len(lst)-2,-1,-1):
-                if num > lst[i]:
-                    lst[i+1] = num
-                    break
+    dp = [1] * n
 
-    return n-len(lst)+1
+    for i in range(1, n):
+        for j in range(0, i):
+            if list_n[j] < list_n[i]:
+                dp[i] = max(dp[i], dp[j] + 1)
+
+    return max(dp)
 

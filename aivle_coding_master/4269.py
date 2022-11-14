@@ -1,56 +1,46 @@
 import sys
-import copy
 input = sys.stdin.readline
 
 n, m = map(int, input().split())
-move = [(1,0),(0,1),(-1,0),(0,-1)]
-road = []
-for _ in range(n):
-    road.append(list(input().strip()))
+graph = []
 
-start, end = (0,0), (n-1, m-1)
+visited = [[[0] * 2 for _ in range(m)] for _ in range(n)]
+visited[0][0][0] = 1
+
+for i in range(n):
+    graph.append(list(map(int, list(input().strip()))))
+
+dx = [0, 0, 1, -1]
+dy = [1, -1, 0, 0]
 
 
-def dfs_search_road(graph, start, end):
-    MAP = [[0 for _ in range(m)] for _ in range(n)]
-    need_visited, visited = [start], []
-    MAP[start[0]][start[1]] = 1
-    wood_point = []
-    while need_visited:
-        x, y = need_visited.pop()
-        if (x,y) not in visited:
-            visited.append((x,y))
+def bfs(x, y, z):
+    queue = [(x, y, z)]
+
+    while queue:
+        print(queue)
+        a, b, c = queue[0]
+        del queue[0]
+
+        if a == n - 1 and b == m - 1:
+            return visited[a][b][c]
+
+        for i in range(4):
+            nx = a + dx[i]
+            ny = b + dy[i]
+
+            if 0 <= nx < n and 0 <= ny < m:
+                if graph[nx][ny] == 1 and c == 0 :
+                    visited[nx][ny][1] = visited[a][b][0] + 1
+                    queue.append((nx, ny, 1))
+                elif graph[nx][ny] == 0 and visited[nx][ny][c] == 0:
+                    visited[nx][ny][c] = visited[a][b][c] + 1
+                    queue.append((nx, ny, c))
+        
+        print(visited)
+        
             
-            if (x,y) == end:
-                return True, MAP[end[0]][end[1]], []
-
-            for x_, y_ in move:
-                if 0 <= (x+x_) < n and 0 <= (y+y_) < m:
-                    if graph[x+x_][y+y_] == '0':
-                        MAP[x+x_][y+y_] = MAP[x][y] + 1
-                        need_visited.append((x+x_, y+y_))
-                    else:
-                        wood_point.append((x+x_, y+y_))
-    else:
-        return False, -1, wood_point
+    return -1
 
 
-isEnd, st_count, st_point = dfs_search_road(road, start, end)
-if isEnd:
-    print(st_count)
-else:
-    _, ed_count, ed_point = dfs_search_road(road, end, start)
-    intersection = list(set(st_point) & set(ed_point))
-    result = []
-    if intersection:
-        for wood in intersection:
-            tmp = copy.deepcopy(road)
-            tmp[wood[0]][wood[1]] = '0'
-            isBool, count, _ = dfs_search_road(tmp, start, end)
-            if isBool:
-                result.append(count)
-        print(min(result))
-    else:
-        print(-1)
-
-
+print(bfs(0, 0, 0))

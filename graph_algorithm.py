@@ -97,10 +97,12 @@ def disjkstra_hq(graph, start):
         if distance[node] < dist:
             continue
             
-        for r, d in graph[r]:
-            distance[r] = min(distance[r], distance[r] + d)
-            heapq.heappush(visited, (distance[r], r))
+        for r, d in graph[node]:
+            if (distance[node] + d) < distance[r]:
+                distance[r] = distance[node] + d
+                heapq.heappush(visited, (distance[r], r))
 
+    return distance
 
 ### 크루스칼 알고리즘 : https://techblog-history-younghunjo1.tistory.com/262
 # 서로소 집합 자료구조 : 서로 공통 요소. 교집합이 없는 서로 다른 집합.
@@ -112,7 +114,7 @@ def disjkstra_hq(graph, start):
 
 def find_parent(parent, x):
     if parent[x] != x:
-        return find_parent(parent, parent[x])
+        parent[x] = find_parent(parent, parent[x])
     
     return x
 
