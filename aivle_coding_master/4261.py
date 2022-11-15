@@ -3,29 +3,25 @@ input = sys.stdin.readline
 
 
 n, m = map(int, input().split())
-
-students={i:[] for i in range(n+1)}
+cnt = 0
+students={}
 schools={i:[] for i in range(m+1)}
 s = []
-# school = []
 for i in range(1,n+1):
     tmp = list(map(int,input().split()))
-    students[i].extend(tmp[1:])
+    students[i] = tmp[1:]
     s.extend(tmp[1:])
     for j in tmp[1:]:
         schools[j].append(i)
 
-s= list(set(s))
+s = list(set(s))
 
-cnt = 0
+
 while True:
     del_student = []
     stop = True
     for i in students:
-        if len(students[i]) == 0:
-            del_student.append(i)
-            continue
-        elif len(students[i]) == 1:
+        if len(students[i]) == 1:
             school = students[i][0]
             del_student.append(i)
             schools[school].remove(i)
@@ -52,13 +48,11 @@ while True:
                     break
     
     if stop:
-        
         break
     else:
         for i in del_student:
             del students[i]
 
-# print(cnt)
 
 print(min(cnt + len(students), len(s)))
 

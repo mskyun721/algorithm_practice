@@ -2,14 +2,13 @@ import sys
 import heapq
 input = sys.stdin.readline
 
-n, m, k = map(int, input().split())
+n, k, m = map(int, input().split())
 
-friend_no = [i for i in range(n+1)]
 graph = [[] for _ in range(n+1)]
 for _ in range(m):
     friend = list(map(int, input().split()))
     for i in friend:
-        graph[i].extend([j for j in friend if j != i])
+        graph[i].extend([(j, 1) for j in friend if j != i])
         
 INF = 1e9
 def disjkstra(graph, start):
@@ -23,9 +22,10 @@ def disjkstra(graph, start):
             continue
 
         for i in graph[node]:
-            if (distance[node] + 1) < distance[i]:
-                distance[i] = distance[node] + 1
-                heapq.heappush(visited, (distance[i], i))
+            d = distance[node] + i[1]
+            if d < distance[i[0]]:
+                distance[i[0]] = d
+                heapq.heappush(visited, (d, i[0]))
      
     return distance[n]
 
@@ -35,5 +35,4 @@ if result < INF:
 else:
     print(-1)
  
-
 
