@@ -5,16 +5,14 @@ input = sys.stdin.readline
 n, m = map(int, input().split())
 
 arr = []
-not_black = []
 visited = [[True for _ in range(m)] for _ in range(n)]
 for i in range(n):
     tmp = list(input().strip())
     arr.append(tmp)
     for idx, j in enumerate(tmp):
-        if j != 'X':
-            not_black.append((i, idx))
-        else:
+        if j == 'X':
             visited[i][idx] = False
+            
 
 move = [(1,0),(0,1),(-1,0),(0,-1)]
 color = [0,0]
@@ -28,7 +26,7 @@ def dfs(graph, st):
 
         if visited[x][y]:
             visited[x][y] = False
-            
+
             if graph[x][y] == 'A':
                 red += 1
             elif graph[x][y] == 'B':
@@ -38,8 +36,6 @@ def dfs(graph, st):
                 dx, dy = x+x_, y+y_
                 if 0 <= dx < n and 0 <= dy < m:
                     need_visited.append((dx,dy))
-                    
-                    
     
     if blue >= red:
         color[1] += blue
